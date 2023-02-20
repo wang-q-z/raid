@@ -36,7 +36,16 @@ P 用来记录更新  0---未更新   1---记录链表头的地址保存更新�
 
 # 复制写处理 
 在raid5.h中第717行rpconf需要完成复制写的全局config
+
+### is_large
 在raid5.c 5771行is_large判断大小
+文章中block size 是 64KB 
+根据CSDN中描述 1 stripe的data size =3*chunk =1536KB  一共有24个data block 
+阈值 n/2 向下取整   
+也就是 >12 即 12*64KB = 768KB = 192 page = 1536sector作为分界
+
+
+**Q：类型问题  bio中从哪获得**
 
 
 ## 未考虑加锁，同步等细节
