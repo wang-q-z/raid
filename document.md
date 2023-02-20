@@ -20,14 +20,28 @@ bool is_large(bi)判断大小写  如果是大写 就返回1 否则返回0
 ```
 # 映射表
 
+raid5.h  
+
 对于map,map应该像r5conf一样是个全局的
+raid5.h 717行
+## BMP
+论文中通过User logical address space 来对应查表， 实现中根据下发md的bio
+主要要保存
+```c
+P W FLBN  文章中说  P(1) W(1) FLBN(38)一共40bits 可调整   
+W  0---RAID   1---replicated
+P 用来记录更新  0---未更新   1---记录链表头的地址保存更新的数据页     链表
+```
+## BPT
 
+# 复制写处理 
+在raid5.h中第717行rpconf需要完成复制写的全局config
+在raid5.c 5771行is_large判断大小
 
-# 写处理 
 
 ## 未考虑加锁，同步等细节
-
-
+### init_small_write()
+在这个函数中根据bio完成
 
 # 读处理
 
@@ -35,6 +49,11 @@ bool is_large(bi)判断大小写  如果是大写 就返回1 否则返回0
 
 # 错误管理
 
-Q：
+Q：<br>
 1.大小写的转换发生在什么时候
 2.bio记录了什么东西可以提供小写的转换
+
+
+
+bio
+https://blog.csdn.net/geshifei/article/details/119959905
