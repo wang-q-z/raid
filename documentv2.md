@@ -28,7 +28,11 @@
 对于small write 分配两个 raid_stripe
 该处逻辑就是对于offset分配连续两个stripe_head
 ```
-
+##
+```
+5651行
+release_stripe_plug
+```
 # Q
 ```
 1. is_large后设置is_small 标志为1，不是全局应该不用加锁
