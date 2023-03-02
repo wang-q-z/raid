@@ -37,6 +37,13 @@
 5651行
 release_stripe_plug
 ```
+## map表    
+```
+raid5.h 185行开始写map，这可能和分配相关
+FBMT_t 全局表类型
+BMT_t BMT表中的一行 是个索引表 根据bio的offset或者sector来索引
+```
+
 # Q
 ```
 1. is_large后设置is_small 标志为1，不是全局应该不用加锁
@@ -46,4 +53,6 @@ release_stripe_plug
 # 未完成需要注意
 
 1. stripe_head应该在内存中应该是连续的 元数据+dev 假设一次复制写写了两个head，接下来bio要写多分配的那个head，我的映射方法不应该像原来一样，需要依据map表
-2. rp的lru和hash应该和raid一样吗？或者说raid的lru和hash是干什么的
+2. rp的lru和hash应该和raid一样吗？或者说raid的lru和hash是干什么的?
+3. 或许raid的hash和map表有相关的地方
+4. release_stripe_plug()和 release_stripe()感觉只需要修改sh的状态即可
