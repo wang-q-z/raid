@@ -17,6 +17,10 @@
 
 以后在make_request所有if判断都要加上is_small 判断
 ```
+
+## 
+
+
 # 逻辑
 
 ## 状态 （未写）
@@ -28,7 +32,7 @@
 对于small write 分配两个 raid_stripe
 该处逻辑就是对于offset分配连续两个stripe_head
 ```
-##
+## 分配好stripe_head之后的处理
 ```
 5651行
 release_stripe_plug
@@ -37,3 +41,9 @@ release_stripe_plug
 ```
 1. is_large后设置is_small 标志为1，不是全局应该不用加锁
 ```
+
+
+# 未完成需要注意
+
+1. stripe_head应该在内存中应该是连续的 元数据+dev 假设一次复制写写了两个head，接下来bio要写多分配的那个head，我的映射方法不应该像原来一样，需要依据map表
+2. rp的lru和hash应该和raid一样吗？或者说raid的lru和hash是干什么的
