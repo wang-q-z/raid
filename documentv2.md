@@ -14,8 +14,8 @@ raid5_make_request->release_stripe_plug->raid5_release_stripe->do_release_stripe
 <br> release_stripe 析构条带进入do_release_stripe
 <br> do_release_stripe需要修改，把small write的进入自己的队列<br>
 
-第二阶段
-<br>handle_stripe()
+第二阶段  根据队列进行写操作
+<br>handle_stripe()->ops_run_io()直接下发io请求就行
 
 # 接口
 ## is_large()
