@@ -7,6 +7,15 @@
 <br>所以复制写和raid_stripe的数据结构基本一致，只是在进行复制写的时候分配两个stripe写入。
 <br>在进行转换时，删去一个stripe，并计算P。
 
+
+raid5_make_request->release_stripe_plug->raid5_release_stripe->do_release_stripe
+<br> raid5_make_request主要根据bio决定大小写，进入分配
+<br> release_stripe_plug 感觉不用改，将某些状态条带放入lru
+<br> release_stripe 析构条带进入do_release_stripe
+<br> do_release_stripe需要修改，把small write的进入自己的队列<br>
+
+第二阶段
+
 # 接口
 ## is_large()
 ```c
@@ -42,6 +51,11 @@ release_stripe_plug
 raid5.h 185行开始写map，这可能和分配相关
 FBMT_t 全局表类型
 BMT_t BMT表中的一行 是个索引表 根据bio的offset或者sector来索引
+```
+
+## 应该修改compute_sector
+```
+针对下面提出的问题，需要修改元数据，确定新的映射规则
 ```
 
 # Q
