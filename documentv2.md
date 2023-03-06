@@ -15,6 +15,7 @@ raid5_make_request->release_stripe_plug->raid5_release_stripe->do_release_stripe
 <br> do_release_stripe需要修改，把small write的进入自己的队列<br>
 
 第二阶段
+<br>handle_stripe()
 
 # 接口
 ## is_large()
